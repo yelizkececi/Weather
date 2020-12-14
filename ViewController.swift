@@ -9,27 +9,27 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var selectCountryPickerView: UIPickerView! {
-        didSet{
-            selectCountryPickerView.delegate = self
-            selectCountryPickerView.dataSource = self
-        }
-    }
+    var selectCountryPickerView: UIPickerView = UIPickerView()
+    @IBOutlet weak var countriesTextField: UITextField!
     
     var countries: [Country] = []
+    var selectedCountry: String? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectCountryPickerView.delegate = self
+        selectCountryPickerView.dataSource = self
         if let localData = self.readLocalFile(forName: "country") {
             self.getCountries(jsonData: localData)
         }
-        self.view.addSubview(selectCountryPickerView)
-        selectCountryPickerView.center = self.view.center
+        countriesTextField.placeholder = "Select Country"
+        countriesTextField.textAlignment = .center
+        countriesTextField.inputView = selectCountryPickerView
     }
     
     private func readLocalFile(forName name: String) -> Data? {
         do {
-            if let bundlePath = Bundle.main.path(forResource: name,
-                                                 ofType: "json"),
+            if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
                let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
                 return jsonData
             }
@@ -49,15 +49,7 @@ class ViewController: UIViewController {
             print("decode error \(error)")
             return nil
         }
-        
-        for i in (0..<countries.count) {
-            print("Name: \(String(describing: countries[i].name))")
-            print("Code: \(String(describing: countries[i].code))")
-            print("======================")
-        }
-        
         return countries
-        
     }
 }
 
@@ -75,5 +67,9 @@ extension ViewController : UIPickerViewDelegate, UIPickerViewDataSource{
         return countries[row].name
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedCountry = countries[selectCountryPickerView.selectedRow(inComponent: 0)].name!
+        countriesTextField.text = selectedCountry
+    }
     
 }

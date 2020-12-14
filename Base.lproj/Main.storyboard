@@ -16,19 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8h-3v-QiF">
-                                <rect key="frame" x="47" y="345" width="320" height="216"/>
-                            </pickerView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LUe-AC-POE">
+                                <rect key="frame" x="47" y="120" width="320" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="a8h-3v-QiF" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="13q-Or-rzF"/>
-                            <constraint firstItem="a8h-3v-QiF" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="FE8-Gj-7Qd"/>
-                        </constraints>
                     </view>
                     <connections>
-                        <outlet property="selectCountryPickerView" destination="a8h-3v-QiF" id="LTz-2k-oWd"/>
+                        <outlet property="countriesTextField" destination="LUe-AC-POE" id="Ioi-af-s55"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
