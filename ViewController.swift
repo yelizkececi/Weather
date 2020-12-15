@@ -11,18 +11,18 @@ class ViewController: UIViewController {
     
     var selectCountryPickerView: UIPickerView = UIPickerView()
     @IBOutlet weak var countriesTextField: UITextField!
+    var cityName: String? = nil
     
     var countries: [Country] = []
-    var selectedCountry: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         selectCountryPickerView.delegate = self
         selectCountryPickerView.dataSource = self
-        if let localData = self.readLocalFile(forName: "country") {
+        if let localData = self.readLocalFile(forName: "country-cities") {
             self.getCountries(jsonData: localData)
         }
-        countriesTextField.placeholder = "Select Country"
+        countriesTextField.placeholder = "Select Country and City"
         countriesTextField.textAlignment = .center
         countriesTextField.inputView = selectCountryPickerView
     }
@@ -56,20 +56,38 @@ class ViewController: UIViewController {
 extension ViewController : UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return countries.count
+        if component == 0 {
+            return countries.count
+        } else{
+            let selectedCountry = selectCountryPickerView.selectedRow(inComponent: 0)
+            return countries[selectedCountry].cities!.count
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return countries[row].name
+        
+        if component == 0 {
+            return countries[row].country
+        } else{
+            let selectedCountry = selectCountryPickerView.selectedRow(inComponent: 0)
+            return countries[selectedCountry].cities?[row]
+        }
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedCountry = countries[selectCountryPickerView.selectedRow(inComponent: 0)].name!
-        countriesTextField.text = selectedCountry
+        selectCountryPickerView.reloadComponent(1)
+        
+        let selectCountry = selectCountryPickerView.selectedRow(inComponent: 0)
+        let selectCity = selectCountryPickerView.selectedRow(inComponent: 1)
+        //let country = countries[selectCountry].country
+        cityName = countries[selectCountry].cities?[selectCity]
+        
+        countriesTextField.text = cityName
     }
     
 }

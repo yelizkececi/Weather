@@ -8,6 +8,6 @@
 import Foundation
 
 struct Country: Decodable {
-   let name: String?
-   let code: String?
+   let country: String?
+   let cities: [String]?
 }

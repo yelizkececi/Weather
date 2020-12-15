@@ -18,6 +18,7 @@
 		213EA0D22587A22100AEB68F /* country.json in Resources */ = {isa = PBXBuildFile; fileRef = 213EA0D12587A22100AEB68F /* country.json */; };
 		213EA0DA2587A3D700AEB68F /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213EA0D92587A3D700AEB68F /* Country.swift */; };
 		213EA0E22587A51700AEB68F /* AppIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 213EA0E12587A51700AEB68F /* AppIcon.png */; };
+		21D3370E2589350200DD8D0E /* country-cities.json in Resources */ = {isa = PBXBuildFile; fileRef = 21D3370D2589350200DD8D0E /* country-cities.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		213EA0D12587A22100AEB68F /* country.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = country.json; sourceTree = "<group>"; };
 		213EA0D92587A3D700AEB68F /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		213EA0E12587A51700AEB68F /* AppIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon.png; sourceTree = "<group>"; };
+		21D3370D2589350200DD8D0E /* country-cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "country-cities.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 		213EA0D62587A28D00AEB68F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21D3370D2589350200DD8D0E /* country-cities.json */,
 				213EA0D12587A22100AEB68F /* country.json */,
 				213EA0D92587A3D700AEB68F /* Country.swift */,
 			);
@@ -270,6 +273,7 @@
 				213EA0E22587A51700AEB68F /* AppIcon.png in Resources */,
 				213EA0D22587A22100AEB68F /* country.json in Resources */,
 				213EA0AB25878F8900AEB68F /* LaunchScreen.storyboard in Resources */,
+				21D3370E2589350200DD8D0E /* country-cities.json in Resources */,
 				213EA0A825878F8900AEB68F /* Assets.xcassets in Resources */,
 				213EA0A625878F8500AEB68F /* Main.storyboard in Resources */,
 			);
