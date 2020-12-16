@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     
     var selectCountryPickerView: UIPickerView = UIPickerView()
     @IBOutlet weak var countriesTextField: UITextField!
-    var cityName: String? = nil
+    var cityName: String?
     
     var countries: [Country] = []
     
@@ -22,11 +22,12 @@ class ViewController: UIViewController {
         if let localData = self.readLocalFile(forName: "country-cities") {
             self.getCountries(jsonData: localData)
         }
-        countriesTextField.placeholder = "Select Country and City"
-        countriesTextField.textAlignment = .center
+        
         countriesTextField.inputView = selectCountryPickerView
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
     private func readLocalFile(forName name: String) -> Data? {
         do {
             if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
@@ -40,16 +41,29 @@ class ViewController: UIViewController {
         return nil
     }
     
-    private func getCountries(jsonData: Data) -> [Country]? {
-        
+    private func getCountries(jsonData: Data){
         do {
             countries = try JSONDecoder().decode([Country].self, from: jsonData)
-            
         } catch(let error) {
             print("decode error \(error)")
-            return nil
         }
-        return countries
+    }
+    
+    @IBAction func continueClicked(_ sender: Any) {
+        sendCity(city: cityName)
+    }
+    
+    func sendCity(city: String?) {
+        if ((city?.isEmpty) == nil) {
+            let alert = UIAlertController(title: "Warning!", message: "Please,Select Country and City", preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(cancelButton)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let vc = self.storyboard?.instantiateViewController(identifier: "DetailViewController") as! DetailViewController
+            vc.city = city ?? ""
+            self.show(vc, sender: nil)
+        }
     }
 }
 
@@ -84,7 +98,6 @@ extension ViewController : UIPickerViewDelegate, UIPickerViewDataSource{
         
         let selectCountry = selectCountryPickerView.selectedRow(inComponent: 0)
         let selectCity = selectCountryPickerView.selectedRow(inComponent: 1)
-        //let country = countries[selectCountry].country
         cityName = countries[selectCountry].cities?[selectCity]
         
         countriesTextField.text = cityName
