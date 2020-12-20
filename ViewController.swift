@@ -22,12 +22,13 @@ class ViewController: UIViewController {
         if let localData = self.readLocalFile(forName: "country-cities") {
             self.getCountries(jsonData: localData)
         }
-        
         countriesTextField.inputView = selectCountryPickerView
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
     }
+    
     private func readLocalFile(forName name: String) -> Data? {
         do {
             if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
@@ -42,6 +43,7 @@ class ViewController: UIViewController {
     }
     
     private func getCountries(jsonData: Data){
+        print(jsonData)
         do {
             countries = try JSONDecoder().decode([Country].self, from: jsonData)
         } catch(let error) {
@@ -54,16 +56,22 @@ class ViewController: UIViewController {
     }
     
     func sendCity(city: String?) {
-        if ((city?.isEmpty) == nil) {
+        if let city = city, !city.isEmpty {
+            let vc = self.storyboard?.instantiateViewController(identifier: "DetailViewController") as! DetailViewController
+            vc.city = city
+            self.show(vc, sender: nil)
+        } else {
             let alert = UIAlertController(title: "Warning!", message: "Please,Select Country and City", preferredStyle: .alert)
             let cancelButton = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(cancelButton)
             self.present(alert, animated: true, completion: nil)
-        } else {
-            let vc = self.storyboard?.instantiateViewController(identifier: "DetailViewController") as! DetailViewController
-            vc.city = city ?? ""
-            self.show(vc, sender: nil)
         }
+    }
+    
+    func selectCity(name: String?) {
+        guard let name = name else { return }
+        cityName = name
+        countriesTextField.text = name
     }
 }
 
@@ -73,8 +81,8 @@ extension ViewController : UIPickerViewDelegate, UIPickerViewDataSource{
         if component == 0 {
             return countries.count
         } else{
-            let selectedCountry = selectCountryPickerView.selectedRow(inComponent: 0)
-            return countries[selectedCountry].cities!.count
+            let selectedCountryIndex = selectCountryPickerView.selectedRow(inComponent: 0)
+            return countries[selectedCountryIndex].cities!.count
         }
     }
     
@@ -83,24 +91,35 @@ extension ViewController : UIPickerViewDelegate, UIPickerViewDataSource{
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if component == 0 {
+        switch component {
+        case 0:
             return countries[row].country
-        } else{
-            let selectedCountry = selectCountryPickerView.selectedRow(inComponent: 0)
-            return countries[selectedCountry].cities?[row]
+        case 1:
+            let selectedCountryIndex = selectCountryPickerView.selectedRow(inComponent: 0)
+            if selectedCountryIndex < countries.count {
+                return countries[selectedCountryIndex].cities?[row] ?? ""
+            } else {
+                return ""
+            }
+        default:
+            return ""
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectCountryPickerView.reloadComponent(1)
-        
-        let selectCountry = selectCountryPickerView.selectedRow(inComponent: 0)
-        let selectCity = selectCountryPickerView.selectedRow(inComponent: 1)
-        cityName = countries[selectCountry].cities?[selectCity]
-        
-        countriesTextField.text = cityName
+        let selectedCountryIndex = selectCountryPickerView.selectedRow(inComponent: 0)
+        let selectedCityIndex = selectCountryPickerView.selectedRow(inComponent: 1)
+        switch component {
+        case 0:
+            selectCountryPickerView.reloadComponent(1)
+            if (countries[selectedCountryIndex].cities?.count ?? 0) > 0 {
+                selectCountryPickerView.selectRow(0, inComponent: 1, animated: true)
+                selectCity(name: countries[selectedCountryIndex].cities?.first)
+            }
+        case 1:
+           selectCity(name: countries[selectedCountryIndex].cities?[selectedCityIndex])
+        default:
+            break
+        }
     }
-    
 }

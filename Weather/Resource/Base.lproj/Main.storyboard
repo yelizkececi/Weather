@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -100,6 +100,19 @@
                                 <color key="shadowColor" systemColor="systemOrangeColor"/>
                                 <size key="shadowOffset" width="1" height="0.0"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Pm-zW-4Nf">
+                                <rect key="frame" x="20" y="398" width="374" height="72"/>
+                                <color key="tintColor" systemColor="systemGray5Color"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                <color key="textColor" systemColor="tertiarySystemBackgroundColor"/>
+                                <color key="shadowColor" systemColor="systemOrangeColor"/>
+                                <size key="shadowOffset" width="1" height="0.0"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="03d" translatesAutoresizingMaskIntoConstraints="NO" id="Q0s-GS-FLI">
+                                <rect key="frame" x="84" y="245" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sGH-Aa-4W2"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -107,18 +120,23 @@
                             <constraint firstItem="sGH-Aa-4W2" firstAttribute="trailing" secondItem="juJ-iN-NOe" secondAttribute="trailing" constant="20" id="1ml-aC-I4n"/>
                             <constraint firstItem="sGH-Aa-4W2" firstAttribute="trailing" secondItem="Fju-KR-uxa" secondAttribute="trailing" id="8vq-uc-aOg"/>
                             <constraint firstItem="Fju-KR-uxa" firstAttribute="top" secondItem="sGH-Aa-4W2" secondAttribute="top" id="9aG-Fy-cG3"/>
+                            <constraint firstItem="sGH-Aa-4W2" firstAttribute="trailing" secondItem="1Pm-zW-4Nf" secondAttribute="trailing" constant="20" id="DoL-G9-Kfs"/>
                             <constraint firstItem="7Pa-rn-c0y" firstAttribute="top" secondItem="sGH-Aa-4W2" secondAttribute="top" id="K4u-bJ-3vJ"/>
                             <constraint firstItem="7Pa-rn-c0y" firstAttribute="leading" secondItem="sGH-Aa-4W2" secondAttribute="leading" constant="47" id="M8u-FT-zgF"/>
                             <constraint firstItem="juJ-iN-NOe" firstAttribute="leading" secondItem="sGH-Aa-4W2" secondAttribute="leading" constant="20" id="U9k-3p-ESM"/>
+                            <constraint firstItem="1Pm-zW-4Nf" firstAttribute="top" secondItem="juJ-iN-NOe" secondAttribute="bottom" constant="146" id="UZo-X8-CAp"/>
                             <constraint firstItem="juJ-iN-NOe" firstAttribute="top" secondItem="7Pa-rn-c0y" secondAttribute="bottom" constant="20" id="YeI-hg-ig2"/>
                             <constraint firstItem="Fju-KR-uxa" firstAttribute="leading" secondItem="sGH-Aa-4W2" secondAttribute="leading" id="cUc-l8-qV3"/>
                             <constraint firstItem="sGH-Aa-4W2" firstAttribute="trailing" secondItem="7Pa-rn-c0y" secondAttribute="trailing" constant="47" id="ggH-s3-2Hh"/>
                             <constraint firstItem="sGH-Aa-4W2" firstAttribute="bottom" secondItem="Fju-KR-uxa" secondAttribute="bottom" constant="-34" id="lXf-Yx-H5u"/>
+                            <constraint firstItem="1Pm-zW-4Nf" firstAttribute="leading" secondItem="sGH-Aa-4W2" secondAttribute="leading" constant="20" id="wkL-xE-Wdb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Weather" id="kbw-bY-qGS" colorLabel="IBBuiltInLabel-Blue"/>
                     <connections>
                         <outlet property="cityNameLabel" destination="7Pa-rn-c0y" id="mMM-4v-91C"/>
+                        <outlet property="iconImageView" destination="Q0s-GS-FLI" id="XgM-H1-V8E"/>
+                        <outlet property="iconLabel" destination="1Pm-zW-4Nf" id="ltl-1C-n5M"/>
                         <outlet property="weatherLabel" destination="juJ-iN-NOe" id="d1P-bZ-tbM"/>
                     </connections>
                 </viewController>
@@ -151,6 +169,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="03d" width="100" height="100"/>
         <image name="sky.jpeg" width="800" height="1200"/>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
