@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
     func loadWeather(weather: WeatherResponse) {
         DispatchQueue.main.sync {
             self.weatherLabel.text = String(format: "%.1f", weather.main.temp - 273.15)
-            self.iconLabel.text = String(weather.weather.first!.description)
+            self.iconLabel.text = String(weather.weather.first!.description).capitalized
             let iconName = String(weather.weather.first!.icon)
             iconImageView.image = UIImage(named: "\(iconName).png")
         }
