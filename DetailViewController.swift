@@ -32,10 +32,6 @@ class DetailViewController: UIViewController {
             let iconName = String(weather.weather.first!.icon)
             iconImageView.image = UIImage(named: "\(iconName).png")
         }
-        print(weather.main.humidity)
-        print(weather.main.temp - 273.15)
-        print(weather.weather.first!.main as String)
-        print(weather.weather.first!.description as String)
     }
     
     func getTodayResult(cityName: String) {
@@ -50,15 +46,9 @@ class DetailViewController: UIViewController {
                     self.loadWeather(weather: weatherResponse)
                 } catch {
                     DispatchQueue.main.sync {
-//                        let alert = UIAlertController(title: "Warning!", message: "The city you selected was not found.\n Please try selecting a city again.", preferredStyle: .alert)
-//                        let cancelButton = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                        alert.addAction(cancelButton)
-//                        self.present(alert, animated: true, completion: nil)
-                        
                         let vc = self.storyboard?.instantiateViewController(identifier: "ViewController") as! ViewController
                         self.show(vc, sender: nil)
                         print("Weather Json Error")
-                        
                     }
                 }
             }
